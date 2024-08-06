@@ -3,8 +3,14 @@ import Link from "next/link"
 import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
+import { fetchInfo } from "@/app/lib/data"
 
-const InfosPage = () => {
+const InfosPage = async ({searchParams}) => {
+
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const infos = await fetchInfo(q);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -21,18 +27,21 @@ const InfosPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr> 
-            <td>Dates et Lieu</td>
-            <td>Dates du Festival : 14 juillet 2024 – 16 juillet 2024 / Domaine national de Saint-Cloud 92210</td>
+          {infos.map(info =>(
+            <tr key={info.id}> 
+            <td>{info.title}</td>
+            <td>{info.content}</td>
             <td>
               <div className={styles.buttons}>
-                <Link href="/dashboard/infos/test">
+                <Link href={`/dashboard/infos/${info.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>Voir</button>
                 </Link>
                 <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
               </div>
             </td>
           </tr>
+          ))}
+          
         </tbody>
       </table>
       <Pagination />

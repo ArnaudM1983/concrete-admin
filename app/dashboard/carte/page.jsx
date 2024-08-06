@@ -3,8 +3,14 @@ import Link from "next/link"
 import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
+import { fetchCarte } from "@/app/lib/data"
 
-const CartePage = () => {
+const CartePage = async ({searchParams}) => {
+
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const cartes = await fetchCarte(q);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -24,29 +30,32 @@ const CartePage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {cartes.map(carte => (
+            <tr key={carte.id}>
           <td>
               <Image
-                src="" // Fetch depuis MongoDB
+                src={carte.img}
                 alt=""
                 width={40}
                 height={40}
                 className={styles.programmeImage}
               />
             </td> 
-            <td>Scène Principale</td>
-            <td>0.0.00</td>
-            <td>0.00.23</td>
-            <td>Scènes</td>
+            <td>{carte.title}</td>
+            <td>{carte.latitude}</td>
+            <td>{carte.longitude}</td>
+            <td>{carte.category}</td>
             <td>
               <div className={styles.buttons}>
-                <Link href="/dashboard/carte/test">
+                <Link href={`/dashboard/carte/${carte.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>Voir</button>
                 </Link>
                 <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
               </div>
             </td>
           </tr>
+          ))}
+          
         </tbody>
       </table>
       <Pagination />

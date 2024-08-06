@@ -3,8 +3,17 @@ import Link from "next/link"
 import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
+import { searchParams} from "next/navigation"
+import { fetchProgramme } from "@/app/lib/data"
 
-const Programme = () => {
+const Programme = async ({searchParams}) => {
+
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const programmes = await fetchProgramme(q);
+
+  console.log(programmes)
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -25,30 +34,32 @@ const Programme = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-          <td>
-              <Image
-                src="/noavatar.png" // Fetch depuis MongoDB
-                alt=""
-                width={40}
-                height={40}
-                className={styles.programmeImage}
-              />
-            </td> 
-            <td>Groupe A</td>
-            <td>Scène Principale</td>
-            <td>25/09/2024</td>
-            <td>20h00</td>
-            <td>Concert</td>
-            <td>
-              <div className={styles.buttons}>
-                <Link href="/dashboard/programme/test">
-                  <button className={`${styles.button} ${styles.view}`}>Voir</button>
-                </Link>
-                <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
-              </div>
-            </td>
-          </tr>
+          {programmes.map(programme => (
+            <tr key={programme.id}>
+              <td>
+                <Image
+                  src={programme.img}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className={styles.programmeImage}
+                />
+              </td> 
+              <td>{programme.title}</td>
+              <td>{programme.location}</td>
+              <td>{programme.date}</td>
+              <td>{programme.time}</td>
+              <td>{programme.category}</td>
+              <td>
+                <div className={styles.buttons}>
+                  <Link href={`/dashboard/programme/${programme.id}`}>
+                    <button className={`${styles.button} ${styles.view}`}>Voir</button>
+                  </Link>
+                  <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination />

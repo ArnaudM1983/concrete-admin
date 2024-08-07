@@ -4,6 +4,7 @@ import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
 import { fetchInfo } from "@/app/lib/data"
+import { deleteInfo } from "@/app/lib/action"
 
 const InfosPage = async ({searchParams}) => {
 
@@ -36,7 +37,10 @@ const InfosPage = async ({searchParams}) => {
                 <Link href={`/dashboard/infos/${info.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>Voir</button>
                 </Link>
-                <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
+                <form action={deleteInfo}>
+                    <input type="hidden" name="id" value={info.id}/>
+                    <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
+                  </form>
               </div>
             </td>
           </tr>

@@ -4,6 +4,7 @@ import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
 import { fetchCarte } from "@/app/lib/data"
+import { deletePoint } from "@/app/lib/action"
 
 const CartePage = async ({searchParams}) => {
 
@@ -50,7 +51,10 @@ const CartePage = async ({searchParams}) => {
                 <Link href={`/dashboard/carte/${carte.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>Voir</button>
                 </Link>
-                <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
+                <form action={deletePoint}>
+                    <input type="hidden" name="id" value={carte.id}/>
+                    <button className={`${styles.button} ${styles.delete}`}>Supprimer</button>
+                  </form>
               </div>
             </td>
           </tr>

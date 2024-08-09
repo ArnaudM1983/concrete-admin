@@ -1,15 +1,22 @@
-.container{
+.container {
     display: flex;
     height: 100vh;
 }
 
-.menu{
+.menu {
     flex: 1;
     background-color: var(--bgSoft);
     padding: 20px;
 }
 
-.content{
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
     flex: 4;
+    margin-bottom: 20px;
+}
+
+.content {
+    flex: 1;
     padding: 20px;
 }

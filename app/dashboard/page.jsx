@@ -1,7 +1,7 @@
 
 const Dashboard = () => {
   return (
-    <div>Bienvenue sur votre Dashboard</div>
+    <div>Interface de gestion - Concrete Jungle Festival</div>
   )
 }
 

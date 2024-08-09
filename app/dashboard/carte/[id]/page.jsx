@@ -1,20 +1,27 @@
+import { updatePoint } from "@/app/lib/action";
+import { fetchCarte } from "@/app/lib/data";
 import styles from "@/app/ui/dashboard/utilisateurs/singleUser/singleUser.module.css"
 
-const SingleMapPage = () => {
+const SingleMapPage = async ({ params }) => {
+
+    const { id } = params;
+    const carte = await fetchCarte(id)
+
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
-                    <img src="/noavatar.png" alt="photo de l'utilisateur" fill className={styles.img} />
+                    <img src={carte.img || "/noavatar.png" } alt="photo de l'utilisateur" fill className={styles.img} />
                 </div>
-                Scène Principale
+                {carte.title}
             </div>
             <div className={styles.formContainer}>
-                <form action="" className={styles.form}>
+                <form action={updatePoint} className={styles.form}>
+                <input type="hidden" name="id" value={carte.id} />
                     <label>Titre</label>
-                    <input type="text" name="titre" id="" placeholder="Scène Principale" />
+                    <input type="text" name="title" id="" placeholder={carte.title}/>
                     <label>Catégorie</label>
-                    <select name="cat" id="cat">
+                    <select name="category" id="category">
                         <option value="general">Choisir une catégorie</option>
                         <option value="Scènes">Scènes</option>
                         <option value="Toilettes">Toilettes</option>
@@ -22,13 +29,15 @@ const SingleMapPage = () => {
                         <option value="Postes de secours">Postes de secours</option>
                     </select>
                     <label>Latitude</label>
-                    <input type="text" name="latitude" placeholder="Latitude" required />
+                    <input type="text" name="latitude" placeholder={carte.latitude}  />
                     <label>Longitude</label>
-                    <input type="text" name="longitude" placeholder="Longitude" required />
+                    <input type="text" name="longitude" placeholder={carte.longitude}  />
+                    {/*
                     <div className={styles.img}>
                         <label htmlFor="image">Ajouter une icône</label>
-                        <input type="file" name="image" accept="image/*" required />
+                        <input type="file" name="img" accept="image/*"  />
                     </div>
+                    */}
                     <button>Mettre à jour</button>
                 </form>
             </div>

@@ -3,14 +3,14 @@ import Link from "next/link"
 import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
-import { fetchInfo } from "@/app/lib/data"
+import { fetchInfos } from "@/app/lib/data"
 import { deleteInfo } from "@/app/lib/action"
 
 const InfosPage = async ({searchParams}) => {
 
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const infos = await fetchInfo(q);
+  const infos = await fetchInfos(q);
 
   return (
     <div className={styles.container}>

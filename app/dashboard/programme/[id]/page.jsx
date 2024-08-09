@@ -1,18 +1,26 @@
+
+import { updateProgramme } from "@/app/lib/action";
+import { fetchProgramme } from "@/app/lib/data";
 import styles from "@/app/ui/dashboard/utilisateurs/singleUser/singleUser.module.css"
 
-const SingleProgrammePage = () => {
+const SingleProgrammePage = async({params}) => {
+
+    const {id} = params;
+    const programme = await fetchProgramme(id);
+
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
-                    <img src="/noavatar.png" alt="photo de l'utilisateur" fill className={styles.img} />
+                    <img src={programme.img || "/noavatar.png" } alt="photo de l'utilisateur" fill className={styles.img} />
                 </div>
-                Groupe A
+                {programme.title}
             </div>
             <div className={styles.formContainer}>
-                <form action="" className={styles.form}>
+                <form action={updateProgramme} className={styles.form}>
+                <input type="hidden" name="id" value={programme.id} />
                     <label>Titre</label>
-                    <input type="text" name="titre" id="" placeholder="Groupe A" />
+                    <input type="text" name="title" placeholder={programme.title} />
                     <label>Lieu</label>
                     <select name="location" id="location">
                         <option value="general">Choisir un lieu</option>
@@ -29,12 +37,12 @@ const SingleProgrammePage = () => {
                         <option value="Animation">Animation</option>
                     </select>
                     <label>Date</label>
-                    <input type="date" name="date" required />
+                    <input type="date" name="date"  />
                     <label>Heure</label>
-                    <input type="time" name="heure" required />
+                    <input type="time" name="heure"  />
                     <div className={styles.img}>
                         <label htmlFor="image">Ajouter une image</label>
-                        <input type="file" name="image" accept="image/*" required />
+                        <input type="file" name="image" accept="image/*"  />
                     </div>
                     <button>Mettre à jour</button>
                 </form>

@@ -3,14 +3,14 @@ import Link from "next/link"
 import Pagination from "@/app/ui/dashboard/pagination/pagination"
 import Search from "@/app/ui/dashboard/search/search"
 import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
-import { fetchCarte } from "@/app/lib/data"
+import { fetchCartes } from "@/app/lib/data"
 import { deletePoint } from "@/app/lib/action"
 
 const CartePage = async ({searchParams}) => {
 
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const cartes = await fetchCarte(q);
+  const cartes = await fetchCartes(q);
 
   return (
     <div className={styles.container}>

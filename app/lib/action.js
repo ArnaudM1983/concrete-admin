@@ -298,18 +298,26 @@ export const deleteInfo = async (formData) => {
     redirect("/dashboard/infos");
 }
 
-export const authenticate = async ( formData) => {
+export const authenticate = async (formData) => {
     const { username, password } = Object.fromEntries(formData);
   
     try {
-      await signIn("credentials", { username, password });
-    } catch (err) {
-      if (err.message.includes("CredentialsSignin")) {
-        return "Wrong Credentials";
+      const result = await signIn("credentials", {
+        redirect: false,
+        username,
+        password
+      });
+  
+      if (result.error) {
+        return { error: "Identifiants Incorrects" };
       }
-      throw err;
+  
+      return { success: true }; // Authentification réussie
+    } catch (err) {
+      return { error: "Identifiants incorrects. Veuillez réessayer." };
     }
   };
+  
 
 
 

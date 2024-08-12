@@ -79,41 +79,52 @@ export const deleteUser = async (formData) => {
 
 // Ajouter un programme
 export const addProgramme = async (formData) => {
-    
-    const { title, category, location, date, time, img } = Object.fromEntries(formData)
-
+    const { title, category, location, date, time } = Object.fromEntries(formData);
+  
+    const imgFile = formData.get("img");
+  
+    // Convertir l'image en base64
+    const imgBuffer = await imgFile.arrayBuffer();
+    const imgBase64 = Buffer.from(imgBuffer).toString("base64");
+  
     try {
-        connectToDB();
-
-        const newProgramme = new Programme({
-            title, 
-            category, 
-            location, 
-            date, 
-            time, 
-            img
-        })
-
-        await newProgramme.save()
-
+      connectToDB();
+  
+      const newProgramme = new Programme({
+        title,
+        category,
+        location,
+        date,
+        time,
+        img: imgBase64 // Sauvegarde de l'image en base64
+      });
+  
+      await newProgramme.save();
+  
     } catch (error) {
-        console.log(error)
-        throw new Error("Erreur")
+      console.log(error);
+      throw new Error("Erreur lors de l'ajout du programme");
     }
 
     redirect("/dashboard/programme");
-}
+  }
 
 // Mettre à jour un programme
 export const updateProgramme = async (formData) => {
     
     const { id, title, category, location, date, time, img } = Object.fromEntries(formData)
 
+    const imgFile = formData.get("img");
+  
+    // Convertir l'image en base64
+    const imgBuffer = await imgFile.arrayBuffer();
+    const imgBase64 = Buffer.from(imgBuffer).toString("base64");
+
     try {
         connectToDB();
 
         const updateFields = {
-            title, category, location, date, time, img
+            title, category, location, date, time, img: imgBase64 // Sauvegarde de l'image en base64
         }
 
         Object.keys(updateFields).forEach(
@@ -157,6 +168,12 @@ export const addPoint = async (formData) => {
         longitude,
         img} = Object.fromEntries(formData)
 
+    const imgFile = formData.get("img");
+  
+    // Convertir l'image en base64
+    const imgBuffer = await imgFile.arrayBuffer();
+    const imgBase64 = Buffer.from(imgBuffer).toString("base64");
+
     try {
         connectToDB();
 
@@ -165,7 +182,7 @@ export const addPoint = async (formData) => {
             category, 
             latitude,
             longitude,
-            img
+            img: imgBase64 // Sauvegarde de l'image en base64
         })
 
         await newPoint.save()
@@ -187,6 +204,13 @@ export const updatePoint = async (formData) => {
         longitude,
         img } = Object.fromEntries(formData)
 
+    const imgFile = formData.get("img");
+  
+    // Convertir l'image en base64
+    const imgBuffer = await imgFile.arrayBuffer();
+    const imgBase64 = Buffer.from(imgBuffer).toString("base64");
+
+
     try {
         connectToDB();
 
@@ -195,7 +219,7 @@ export const updatePoint = async (formData) => {
             category, 
             latitude,
             longitude,
-            img
+            img: imgBase64 // Sauvegarde de l'image en base64
         }
 
         Object.keys(updateFields).forEach(

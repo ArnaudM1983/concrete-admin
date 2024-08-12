@@ -15,12 +15,12 @@ const AddMap = () => {
         </select>
         <input type="text" name="latitude" placeholder="Latitude ex: 45.0000" required />
         <input type="text" name="longitude" placeholder="Longitude ex: 45.0000" required />
-        {/*
+        
         <div className={styles.img}>
-        <label htmlFor="image">Ajouter une icône</label>
-        <input type="file" name="image" accept="image/*" required />
+        <label htmlFor="img">Ajouter une icône - PNG uniquement</label>
+        <input type="file" name="img" accept="image/png" />
         </div>
-  */}
+  
         <button type="submit">Ajouter</button>
       </form>
     </div>

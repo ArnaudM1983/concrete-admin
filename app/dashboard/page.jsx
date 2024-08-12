@@ -1,7 +1,10 @@
+import styles from "@/app/ui/dashboard/dashboard/dasboard.module.css"
 
 const Dashboard = () => {
   return (
-    <div>Interface de gestion - Concrete Jungle Festival</div>
+    <div className={styles.container}>
+      <h1>Interface de gestion - Concrete Jungle Festival</h1>
+    </div>
   )
 }
 

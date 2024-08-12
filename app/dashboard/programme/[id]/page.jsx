@@ -1,4 +1,4 @@
-
+import Image from "next/image"
 import { updateProgramme } from "@/app/lib/action";
 import { fetchProgramme } from "@/app/lib/data";
 import styles from "@/app/ui/dashboard/utilisateurs/singleUser/singleUser.module.css"
@@ -12,7 +12,13 @@ const SingleProgrammePage = async({params}) => {
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
-                    <img src={programme.img || "/noavatar.png" } alt="photo de l'utilisateur" fill className={styles.img} />
+                <Image
+                  src={`data:image/png;base64,${programme.img}`} // Assurez-vous que le type MIME correspond à votre image
+                  alt={programme.title}
+                  width={40}
+                  height={40}
+                  className={styles.programmeImage}
+                />                
                 </div>
                 {programme.title}
             </div>
@@ -41,8 +47,8 @@ const SingleProgrammePage = async({params}) => {
                     <label>Heure</label>
                     <input type="time" name="heure"  />
                     <div className={styles.img}>
-                        <label htmlFor="image">Ajouter une image</label>
-                        <input type="file" name="image" accept="image/*"  />
+                        <label htmlFor="img">Ajouter une image - PNG uniquement</label>
+                        <input type="file" name="img" accept="image/png"  />
                     </div>
                     <button>Mettre à jour</button>
                 </form>

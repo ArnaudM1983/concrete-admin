@@ -37,9 +37,9 @@ const Programme = async ({ searchParams }) => {
           {programmes.map(programme => (
             <tr key={programme.id}>
               <td>
-                <Image
-                  src={programme.img}
-                  alt=""
+              <Image
+                  src={`data:image/png;base64,${programme.img}`} // Assurez-vous que le type MIME correspond à votre image
+                  alt={programme.title}
                   width={40}
                   height={40}
                   className={styles.programmeImage}

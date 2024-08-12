@@ -1,6 +1,8 @@
 import { updatePoint } from "@/app/lib/action";
 import { fetchCarte } from "@/app/lib/data";
 import styles from "@/app/ui/dashboard/utilisateurs/singleUser/singleUser.module.css"
+import Image from "next/image"
+
 
 const SingleMapPage = async ({ params }) => {
 
@@ -11,8 +13,13 @@ const SingleMapPage = async ({ params }) => {
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
-                    <img src={carte.img || "/noavatar.png" } alt="photo de l'utilisateur" fill className={styles.img} />
-                </div>
+                <Image
+                  src={`data:image/png;base64,${carte.img}`} // Assurez-vous que le type MIME correspond à votre image
+                  alt={carte.title}
+                  width={40}
+                  height={40}
+                  className={styles.carteImage}
+                />                </div>
                 {carte.title}
             </div>
             <div className={styles.formContainer}>
@@ -32,12 +39,12 @@ const SingleMapPage = async ({ params }) => {
                     <input type="text" name="latitude" placeholder={carte.latitude}  />
                     <label>Longitude</label>
                     <input type="text" name="longitude" placeholder={carte.longitude}  />
-                    {/*
+                    
                     <div className={styles.img}>
-                        <label htmlFor="image">Ajouter une icône</label>
-                        <input type="file" name="img" accept="image/*"  />
+                        <label htmlFor="image">Ajouter une icône - PNG uniquement</label>
+                        <input type="file" name="img" accept="image/png"  />
                     </div>
-                    */}
+                    
                     <button>Mettre à jour</button>
                 </form>
             </div>

@@ -22,12 +22,12 @@ const AddProgramme = () => {
         <input type="date" name="date" required />
         <input type="time" name="time" required />
 
-        {/* 
+      
         <div className={styles.img}>
-          <label htmlFor="img">Ajouter une image</label>
-          <input type="file" name="img" accept="image/*" required />
+          <label htmlFor="img">Ajouter une image - PNG uniquement</label>
+          <input type="file" name="img" accept="image/png"  />
         </div> 
-        */}
+        
         
         <button type="submit">Ajouter</button>
       </form>

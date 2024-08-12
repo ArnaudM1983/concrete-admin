@@ -24,7 +24,7 @@ const Utilisateurs = async ({searchParams}) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Nom d'utilisateur</td>
+            <td>Nom d&apos;utilisateur</td>
             <td>Email</td>
             <td>Créé le</td>
             <td>Rôle</td>

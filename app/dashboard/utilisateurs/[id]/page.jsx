@@ -1,6 +1,7 @@
 import { updateUser } from "@/app/lib/action";
 import { fetchUser } from "@/app/lib/data"
 import styles from "@/app/ui/dashboard/utilisateurs/singleUser/singleUser.module.css"
+import Image from "next/image";
 
 const SingleUserPage = async ({ params }) => {
 
@@ -10,16 +11,13 @@ const SingleUserPage = async ({ params }) => {
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
-                <div className={styles.imgContainer}>
-                    <img src={user.img || "/noavatar.png" } alt="photo de l'utilisateur" fill className={styles.img} />
-                </div>
                 {user.username}
             </div>
             <div className={styles.formContainer}>
                 <form action={updateUser} className={styles.form}>
                     
                     <input type="hidden" name="id" value={user.id} />
-                    <label>Nom d'utilisateur</label>
+                    <label>Nom d&apos;utilisateur</label>
                     <input type="text" name="username" placeholder={user.username} />
                     <label>Email</label>
                     <input type="email" name="email" id="" placeholder={user.email} />

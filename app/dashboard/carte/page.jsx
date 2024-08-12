@@ -17,7 +17,7 @@ const CartePage = async ({ searchParams }) => {
       <div className={styles.top}>
         <Search />
         <Link href="/dashboard/carte/ajouter">
-          <button className={styles.addButton}>Ajouter un point d'interêt</button>
+          <button className={styles.addButton}>Ajouter un point d&apos;intérêt</button>
         </Link>
       </div>
       <table className={styles.table}>

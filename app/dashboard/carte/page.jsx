@@ -23,8 +23,9 @@ const CartePage = async ({ searchParams }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Icône</td>
+            <td>Image</td>
             <td>Titre</td>
+            <td>Contenu</td>
             <td>Lattitude</td>
             <td>Longitude</td>
             <td>Catégorie</td>
@@ -43,6 +44,7 @@ const CartePage = async ({ searchParams }) => {
                 />
               </td>
               <td>{carte.title}</td>
+              <td>{carte.content}</td>
               <td>{carte.latitude}</td>
               <td>{carte.longitude}</td>
               <td>{carte.category}</td>

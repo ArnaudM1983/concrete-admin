@@ -1,4 +1,4 @@
-import { User, Programme, Map, Info } from "./models"
+import { User, Programme, Map, Info, Actus } from "./models"
 import { connectToDB } from "./utils"
 
 // Récupération des utilisateurs depuis MongoDB
@@ -65,6 +65,7 @@ export const fetchCartes = async (q, page) => {
     try {
         connectToDB()
         const cartes = await Map.find({ title: { $regex: regex } })
+        
         return cartes
     } catch (err) {
         console.log(err)
@@ -107,6 +108,34 @@ export const fetchInfo = async (id) => {
         connectToDB()
         const info = await Info.findById(id)
         return info;
+    } catch (err) {
+        console.log(err)
+        throw new Error("Failed to fetch info")
+    }
+}
+
+// Récupération des actus depuis MongoDB
+export const fetchActus = async (q, page) => {
+
+    const regex = new RegExp(q, "i")
+
+    try {
+        connectToDB()
+        const actus = await Actus.find({ title: { $regex: regex } })
+        return actus
+    } catch (err) {
+        console.log(err)
+        throw new Error("Failed to fetch programmes")
+    }
+}
+
+// Récupération d'une actu unique depuis MongoDB
+export const fetchActu = async (id) => {
+
+    try {
+        connectToDB()
+        const actu = await Actus.findById(id)
+        return actu;
     } catch (err) {
         console.log(err)
         throw new Error("Failed to fetch info")

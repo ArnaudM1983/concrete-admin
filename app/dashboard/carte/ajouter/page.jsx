@@ -1,5 +1,5 @@
 import { addPoint } from "@/app/lib/action"
-import styles from "@/app/ui/dashboard/programme/addProgramme/addProgramme.module.css"
+import styles from "@/app/ui/dashboard/carte/addCarte/addCarte.module.css"
 
 const AddMap = () => {
   return (
@@ -13,13 +13,15 @@ const AddMap = () => {
           <option value="Restaurants">Restaurants</option>
           <option value="Postes de secours">Postes de secours</option>
         </select>
+        
         <input type="text" name="latitude" placeholder="Latitude ex: 45.0000" required />
         <input type="text" name="longitude" placeholder="Longitude ex: 45.0000" required />
         
         <div className={styles.img}>
-        <label htmlFor="img">Ajouter une icône - PNG uniquement</label>
+        <label htmlFor="img">Ajouter une image - PNG uniquement</label>
         <input type="file" name="img" accept="image/png" />
         </div>
+        <textarea name="content" id="" rows="14" placeholder="Contenu"></textarea>
   
         <button type="submit">Ajouter</button>
       </form>

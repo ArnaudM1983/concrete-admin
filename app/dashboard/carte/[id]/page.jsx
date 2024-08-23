@@ -35,13 +35,13 @@ const SingleMapPage = async ({ params }) => {
                         <option value="Restaurants">Restaurants</option>
                         <option value="Postes de secours">Postes de secours</option>
                     </select>
+                    <textarea name="content" id="" rows="14" placeholder={carte.content}></textarea>
                     <label>Latitude</label>
                     <input type="text" name="latitude" placeholder={carte.latitude}  />
                     <label>Longitude</label>
-                    <input type="text" name="longitude" placeholder={carte.longitude}  />
-                    
+                    <input type="text" name="longitude" placeholder={carte.longitude}  />                    
                     <div className={styles.img}>
-                        <label htmlFor="image">Ajouter une icône - PNG uniquement</label>
+                        <label htmlFor="image">Ajouter une image - PNG uniquement</label>
                         <input type="file" name="img" accept="image/png"  />
                     </div>
                     

@@ -33,6 +33,11 @@ const menuItems = [
         path: "/dashboard/infos",
         icon: <IoIosInformationCircleOutline />,
       },
+      {
+        title: "Actualités",
+        path: "/dashboard/actus",
+        icon: <IoIosInformationCircleOutline />,
+      },
 
     ]
   },

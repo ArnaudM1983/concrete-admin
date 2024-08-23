@@ -1,6 +1,6 @@
 "use server"
 import { redirect } from "next/navigation";
-import { Programme, User, Map, Info } from "./models";
+import { Programme, User, Map, Info, Actus } from "./models";
 import { connectToDB } from "./utils";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
@@ -163,10 +163,12 @@ export const deleteProgramme = async (formData) => {
 export const addPoint = async (formData) => {
     
     const { title, 
-        category, 
+        category,
+        content, 
         latitude,
         longitude,
-        img} = Object.fromEntries(formData)
+        img,
+        } = Object.fromEntries(formData)
 
     const imgFile = formData.get("img");
   
@@ -179,10 +181,11 @@ export const addPoint = async (formData) => {
 
         const newPoint = new Map({
             title, 
-            category, 
+            category,
+            content, 
             latitude,
             longitude,
-            img: imgBase64 // Sauvegarde de l'image en base64
+            img: imgBase64, // Sauvegarde de l'image en base64
         })
 
         await newPoint.save()
@@ -199,10 +202,12 @@ export const addPoint = async (formData) => {
 export const updatePoint = async (formData) => {
     
     const { id, title, 
-        category, 
+        category,
+        content, 
         latitude,
         longitude,
-        img } = Object.fromEntries(formData)
+        img,
+         } = Object.fromEntries(formData)
 
     const imgFile = formData.get("img");
   
@@ -216,10 +221,11 @@ export const updatePoint = async (formData) => {
 
         const updateFields = {
             title, 
-            category, 
+            category,
+            content,
             latitude,
             longitude,
-            img: imgBase64 // Sauvegarde de l'image en base64
+            img: imgBase64, // Sauvegarde de l'image en base64,
         }
 
         Object.keys(updateFields).forEach(
@@ -274,20 +280,21 @@ export const addInfo = async (formData) => {
         throw new Error("Erreur")
     }
 
-    redirect("/dashboard/infos");
+    redirect("/dashboard/actus");
 }
 
-// Mettre à jour une info unique d'intérêt
+// Mettre à jour une info unique 
 export const updateInfo = async (formData) => {
     
-    const { id, title, content } = Object.fromEntries(formData)
+    const { id, title, content, img } = Object.fromEntries(formData)
 
     try {
         connectToDB();
 
         const updateFields = {
             title, 
-            content
+            content,
+            img: imgBase64 // Sauvegarde de l'image en base64
         }
 
         Object.keys(updateFields).forEach(
@@ -320,6 +327,82 @@ export const deleteInfo = async (formData) => {
     }
 
     redirect("/dashboard/infos");
+}
+
+// Ajouter une actu
+export const addActu = async (formData) => {
+    
+    const { title, content } = Object.fromEntries(formData)
+
+    const imgFile = formData.get("img");
+  
+    // Convertir l'image en base64
+    const imgBuffer = await imgFile.arrayBuffer();
+    const imgBase64 = Buffer.from(imgBuffer).toString("base64");
+
+
+    try {
+        connectToDB();
+
+        const newActu = new Actus({
+            title, 
+            content,
+            img: imgBase64 // Sauvegarde de l'image en base64
+        })
+
+        await newActu.save()
+
+    } catch (error) {
+        console.log(error)
+        throw new Error("Erreur")
+    }
+
+    redirect("/dashboard/actus");
+}
+
+// Mettre à jour une actu unique 
+export const updateActu = async (formData) => {
+    
+    const { id, title, content } = Object.fromEntries(formData)
+
+    try {
+        connectToDB();
+
+        const updateFields = {
+            title, 
+            content
+        }
+
+        Object.keys(updateFields).forEach(
+            (key)=>
+            (updateFields[key]==="" || undefined) && delete updateFields[key]
+            );
+
+        await Actus.findByIdAndUpdate(id, updateFields)
+
+    } catch (error) {
+        console.log(error)
+        throw new Error("Erreur de mise à jour")
+    }
+
+    redirect("/dashboard/actus");
+}
+
+//Supprimer une actu
+export const deleteActu = async (formData) => {
+    
+    const { id } = Object.fromEntries(formData)
+
+    try {
+        connectToDB();
+        await Actus.findByIdAndDelete(id)
+
+    } catch (error) {
+        console.log(error)
+        throw new Error("Erreur")
+    }
+
+    redirect("/dashboard/actus");
 }
 
 export const authenticate = async (formData) => {

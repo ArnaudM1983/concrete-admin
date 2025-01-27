@@ -13,9 +13,11 @@ export const addUser = async (formData) => {
     try {
         connectToDB();
 
+        // Hachage du mot de passe
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password,salt)
 
+        // Création d'un nouvel utilisateur
         const newUser = new User({
             username, 
             email, 
@@ -23,7 +25,8 @@ export const addUser = async (formData) => {
             isAdmin
         })
 
-        await newUser.save()
+        // Sauvegarde dans la base de données
+        await newUser.save() 
 
     } catch (error) {
         console.log(error)
@@ -41,15 +44,15 @@ export const updateUser = async (formData) => {
     try {
         connectToDB();
 
-        const updateFields = {
-            username, email, password, isAdmin
-        }
+        // Préparation des champs à mettre à jour
+        const updateFields = {username, email, password, isAdmin}
 
         Object.keys(updateFields).forEach(
             (key)=>
             (updateFields[key]==="" || undefined) && delete updateFields[key]
             );
 
+        // Mise à jour dans la base de données
         await User.findByIdAndUpdate(id, updateFields)
 
     } catch (error) {
@@ -404,6 +407,7 @@ export const deleteActu = async (formData) => {
 
     redirect("/dashboard/actus");
 }
+
 
 export const authenticate = async (formData) => {
     const { username, password } = Object.fromEntries(formData);

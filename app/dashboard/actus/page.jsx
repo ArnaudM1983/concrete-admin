@@ -6,10 +6,13 @@ import styles from "@/app/ui/dashboard/utilisateurs/utilisateurs.module.css"
 import { fetchActus } from "@/app/lib/data"
 import { deleteActu } from "@/app/lib/action"
 
+// Composant principal Actus
 const Actus = async ({ searchParams }) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
+
+    // Récupération des actualités
     const actus = await fetchActus(q);
 
     return (
@@ -33,7 +36,7 @@ const Actus = async ({ searchParams }) => {
                         <tr key={actu.id}>
                             <td>
                                 <Image
-                                    src={`data:image/png;base64,${actu.img}`} // Assurez-vous que le type MIME correspond à votre image
+                                    src={`data:image/png;base64,${actu.img}`} 
                                     alt={actu.title}
                                     width={40}
                                     height={40}

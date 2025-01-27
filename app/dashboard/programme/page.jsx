@@ -12,8 +12,6 @@ const Programme = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const programmes = await fetchProgrammes(q);
 
-  console.log(programmes)
-
   return (
     <div className={styles.container}>
       <div className={styles.top}>

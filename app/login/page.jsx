@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation"; // Importation de useRouter pour la redirection
+import { useRouter } from "next/navigation"; 
 import styles from "@/app/ui/login/login.module.css";
 import { authenticate } from "../lib/action";
 
@@ -12,8 +12,10 @@ const LoginPage = () => {
     const formData = new FormData(e.target);
 
     try {
+      // Appelle la fonction d'authentification avec les données du formulaire
       const result = await authenticate(formData);
 
+      // Vérifie si une erreur est retournée par l'authentification
       if (result.error) {
         alert(result.error); // Affiche le message d'erreur si les identifiants sont incorrects
       } else {
